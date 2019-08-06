@@ -16,19 +16,20 @@ module "create_bastion" {
   compute_hostname_prefix         = "bastion-${substr(var.region, 3, 3)}"
   compute_boot_volume_size_in_gb  = "${var.compute_boot_volume_size_in_gb}"
   compute_block_volume_size_in_gb = "0"
+  compute_bv_mount_path           = ""
   compute_assign_public_ip        = "true"
   compute_image                   = "${var.instance_image_ocid[var.region]}"
   compute_instance_shape          = "${var.bastion_instance_shape}"
   compute_ssh_public_key          = "${var.ssh_public_key}"
   compute_ssh_private_key         = "${var.ssh_private_key}"
   bastion_ssh_private_key         = "${var.ssh_private_key}"
+  bastion_user                    = ""
   bastion_public_ip               = ""
   timezone                        = "${var.timezone}"
   user_data                       = "./userdata/bootstrap_bastion.tpl"
 }
 
 module "create_ES_master" {
-  depends_on                      = "[module.create_bastion.ComputePrivateIPs]"
   source                          = "./modules/compute"
   compartment_ocid                = "${var.compartment_ocid}"
   AD                              = "${var.AD}"
@@ -47,12 +48,12 @@ module "create_ES_master" {
   compute_ssh_private_key         = "${var.ssh_private_key}"
   bastion_ssh_private_key         = "${var.ssh_private_key}"
   bastion_public_ip               = "${module.create_bastion.ComputePublicIPs[0]}"
+  bastion_user                    = "${var.bastion_user}"
   timezone                        = "${var.timezone}"
   user_data                       = "${data.template_file.bootstrap_ES_master.rendered}"
 }
 
 module "create_ES_data" {
-  depends_on                      = "[module.create_bastion.ComputePrivateIPs]"
   source                          = "./modules/compute"
   compartment_ocid                = "${var.compartment_ocid}"
   AD                              = "${var.AD}"

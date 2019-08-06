@@ -132,7 +132,7 @@ data "oci_core_private_ips" "ES_master_privateIpId" {
 
   # count      = "${length(data.template_file.vnic_ocids.*.rendered)}"
   count   = "${var.ES_master_instance_count}"
-  vnic_id = "${element(data.templatefile.ES_master_vnic_ocids.*.rendered, count.index)}"
+  vnic_id = "${element(data.template_file.ES_master_vnic_ocids.*.rendered, count.index)}"
 
   filter {
     name   = "is_primary"
@@ -212,11 +212,8 @@ data "template_file" "ES_data_vnic_ocids" {
 }
 
 data "oci_core_private_ips" "ES_data_privateIpId" {
-  depends_on = ["data.template_file.ES_data_vnic_ocids"]
-
-  # count      = "${length(data.template_file.vnic_ocids.*.rendered)}"
   count   = "${var.ES_data_instance_count}"
-  vnic_id = "${element(data.templatefile.ES_data_vnic_ocids.*.rendered, count.index)}"
+  vnic_id = "${element(data.template_file.ES_data_vnic_ocids.*.rendered, count.index)}"
 
   filter {
     name   = "is_primary"
@@ -259,5 +256,21 @@ data "template_file" "ES_data_cfg" {
 
     #minimum_master_nodes = "${floor(var.ES_master_instance_count} / 2 + 1)}"
     minimum_master_nodes = "2"
+  }
+}
+
+data "template_file" "bootstrap_ES_data" {
+  template = "${file("${path.module}/userdata/bootstrap_ES_data.tpl")}"
+
+  vars {
+    timezone = "${var.timezone}"
+  }
+}
+
+data "template_file" "bootstrap_ES_master" {
+  template = "${file("${path.module}/userdata/bootstrap_ES_master.tpl")}"
+
+  vars {
+    timezone = "${var.timezone}"
   }
 }

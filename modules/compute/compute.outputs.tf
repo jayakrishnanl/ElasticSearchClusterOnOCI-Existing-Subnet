@@ -11,5 +11,5 @@ output "ComputeOcids" {
 }
 
 output "BvDeviceName" {
-  value = ["${oci_core_volume_attachment.compute.*.device}"]
+  value = ["${oci_core_volume_attachment.blockvolume_attach.*.device}"]
 }
