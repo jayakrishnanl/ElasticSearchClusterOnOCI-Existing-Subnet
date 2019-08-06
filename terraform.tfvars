@@ -24,7 +24,7 @@ ES_master_instance_count = "2"
 ES_data_instance_count = "4"
 
 # Bastion instance shape
-bastion_instance_shape = "VM.STandard2.1"
+bastion_instance_shape = "VM.Standard2.1"
 
 # ElastiSearch instance shape
 ES_instance_shape = "VM.Standard2.2"

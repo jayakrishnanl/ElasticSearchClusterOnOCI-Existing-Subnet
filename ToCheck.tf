@@ -34,4 +34,9 @@ sed -i 's/#MAX_LOCKED_MEMORY/MAX_LOCKED_MEMORY/' /etc/sysconfig/elasticsearch
 Kibana
 echo "server.host: $local_ip" >>/etc/kibana/kibana.yml
 echo "elasticsearch.host: "http://$local_ip:9200"" >>/etc/kibana/kibana.yml
+
+
+Join list to make it a string.
+join(", ", module.create_ES_master.ComputePrivateIPs)
+
 */

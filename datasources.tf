@@ -170,11 +170,11 @@ data "template_file" "EsMasterCfg" {
   vars {
     host_label = "${element(data.template_file.ES_master_hostname_label.*.rendered, count.index)}"
     ip         = "${element(module.create_ES_master.ComputePrivateIPs, count.index)}"
-    full_ips   = "${concat(module.create_ES_master.ComputePrivateIPs, module.create_ES_data.ComputePrivateIPs)}"
-    master_ips = "${module.create_ES_master.ComputePrivateIPs}"
+    data_ips   = "${join(", ", module.create_ES_data.ComputePrivateIPs)}"
+    master_ips = "${join(", ", module.create_ES_master.ComputePrivateIPs)}"
 
     #minimum_master_nodes = "${floor(var.ES_master_instance_count / 2 + 1)}"
-    minimum_master_nodes = "2"
+    minimum_master_nodes = "1"
   }
 }
 
@@ -251,11 +251,11 @@ data "template_file" "ES_data_cfg" {
   vars {
     host_label = "${element(data.template_file.ES_data_hostname_label.*.rendered, count.index)}"
     ip         = "${element(module.create_ES_data.ComputePrivateIPs, count.index)}"
-    full_ips   = "${concat(module.create_ES_master.ComputePrivateIPs, module.create_ES_data.ComputePrivateIPs)}"
-    master_ips = "${module.create_ES_master.ComputePrivateIPs}"
+    data_ips   = "${join(", ", module.create_ES_data.ComputePrivateIPs)}"
+    master_ips = "${join(", ", module.create_ES_master.ComputePrivateIPs)}"
 
     #minimum_master_nodes = "${floor(var.ES_master_instance_count} / 2 + 1)}"
-    minimum_master_nodes = "2"
+    minimum_master_nodes = "1"
   }
 }
 

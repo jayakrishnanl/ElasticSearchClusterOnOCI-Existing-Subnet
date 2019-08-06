@@ -10,6 +10,9 @@ output "ComputeOcids" {
   value = ["${oci_core_instance.compute.*.id}"]
 }
 
+/*
 output "BvDeviceName" {
   value = ["${oci_core_volume_attachment.blockvolume_attach.*.device}"]
 }
+*/
+

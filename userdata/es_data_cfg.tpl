@@ -80,7 +80,7 @@ http.port: 9200
 
 #discovery.seed_hosts: ["10.0.60.3", "10.0.60.4"]
 
-discovery.zen.ping.unicast.hosts: ${full_ips}
+discovery.zen.ping.unicast.hosts: [${master_ips}, ${data_ips}]
 
 discovery.zen.minimum_master_nodes: ${minimum_master_nodes}
 
@@ -92,7 +92,7 @@ node.data: true
 # Bootstrap the cluster using an initial set of master-eligible nodes:
 #
 
-cluster.initial_master_nodes: ${master_ips}
+cluster.initial_master_nodes: [${master_ips}]
 
 #
 # For more information, consult the discovery and cluster formation module documentation.
