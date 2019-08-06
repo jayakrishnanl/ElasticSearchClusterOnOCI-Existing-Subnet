@@ -20,7 +20,7 @@ resource "null_resource" "provision_es_master" {
       "sudo mv /etc/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml.orig",
       "sudo mkdir /etc/systemd/system/elasticsearch.service.d",
       "sudo -s bash -c 'echo \"[Service]\" >>/etc/systemd/system/elasticsearch.service.d/override.conf'",
-      "sudo echo 'LimitMEMLOCK=infinity' >>/etc/systemd/system/elasticsearch.service.d/override.conf",
+      "sudo -s bash -c 'echo 'LimitMEMLOCK=infinity' >>/etc/systemd/system/elasticsearch.service.d/override.conf'",
       "sudo firewall-offline-cmd --port=9200:tcp",
       "sudo firewall-offline-cmd --port=9300:tcp",
       "sudo firewall-offline-cmd --port=5601:tcp",
