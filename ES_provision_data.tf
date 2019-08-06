@@ -12,7 +12,7 @@ resource "null_resource" "provision_es_data" {
     private_key         = "${var.ssh_private_key}"
     bastion_host        = "${module.create_bastion.ComputePublicIPs[0]}"
     bastion_user        = "${var.bastion_user}"
-    bastion_private_key = "${file("${var.ssh_private_key}")}"
+    bastion_private_key = "${var.ssh_private_key}"
   }
 
   provisioner "remote-exec" {

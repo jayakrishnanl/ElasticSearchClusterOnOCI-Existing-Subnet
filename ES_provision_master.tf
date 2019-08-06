@@ -8,10 +8,9 @@ resource "null_resource" "provision_es_master" {
     host                = "${element(module.create_ES_master.ComputePrivateIPs, count.index)}"
     user                = "opc"
     private_key         = "${var.ssh_private_key}"
-    private_key         = "${var.ssh_private_key}"
     bastion_host        = "${module.create_bastion.ComputePublicIPs[0]}"
     bastion_user        = "${var.bastion_user}"
-    bastion_private_key = "${file("${var.ssh_private_key}")}"
+    bastion_private_key = "${var.ssh_private_key}"
   }
 
   provisioner "remote-exec" {

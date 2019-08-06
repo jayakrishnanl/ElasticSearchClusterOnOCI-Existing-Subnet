@@ -19,11 +19,11 @@ resource "oci_core_volume_attachment" "blockvolume_attach" {
       timeout             = "30m"
       host                = "${element(oci_core_instance.compute.*.private_ip, count.index)}"
       user                = "${var.compute_instance_user}"
-      private_key         = "${file(var.compute_ssh_private_key)}"
+      private_key         = "${var.ssh_private_key}"
       bastion_host        = "${var.bastion_public_ip}"
       bastion_port        = "22"
       bastion_user        = "${var.bastion_user}"
-      bastion_private_key = "${file(var.bastion_ssh_private_key)}"
+      bastion_private_key = "${var.ssh_private_key}"
     }
 
     inline = [
