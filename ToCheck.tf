@@ -39,4 +39,13 @@ echo "elasticsearch.host: "http://$local_ip:9200"" >>/etc/kibana/kibana.yml
 Join list to make it a string.
 join(", ", module.create_ES_master.ComputePrivateIPs)
 
+**********
+null_resource.provision_es_master[1] (remote-exec): sudo: ulimit: command not found
+null_resource.provision_es_master[1] (remote-exec): sudo: ulimit: command not found
+
+null_resource.provision_es_master[0] (remote-exec): sudo: ulimit: command not found
+null_resource.provision_es_master[0] (remote-exec): sudo: ulimit: command not found
+
+
+
 */
