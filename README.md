@@ -1,7 +1,7 @@
 # Work In Progress
 # ElasticSearchClusterOnOCI-Existing-Subnet
 
-##Pre-requisites
+## Pre-requisites
 - Create or chose existing Public Subnets where Bastion and Private Subnets where ES Master and Data nodes are to be launched. 
 
 Make sure you create the Subnets across the available ADs.
@@ -18,7 +18,7 @@ Private Subnet on AD3 --> subnet:private-AD3
 
 Refer: https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm#workingtags
 
-##Acknowledgement: 
+## Acknowledgement: 
 Folks who contributed with code, feedback, ideas, testing etc:
 -  Jeet Jagasia
 
