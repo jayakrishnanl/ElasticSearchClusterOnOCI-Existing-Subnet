@@ -35,7 +35,7 @@ elasticsearch.hosts: ["http://${ip}:9200"]
 
 # Kibana uses an index in Elasticsearch to store saved searches, visualizations and
 # dashboards. Kibana creates a new index if the index doesn't already exist.
-#kibana.index: ".kibana"
+kibana.index: ".kibana"
 
 # The default application to load.
 #kibana.defaultAppId: "home"

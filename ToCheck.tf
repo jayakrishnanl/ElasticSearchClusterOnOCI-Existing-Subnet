@@ -45,23 +45,23 @@ join(", ", module.create_ES_master.ComputePrivateIPs)
 
 
 
-curl -XGET http://10.0.5.14:9200/_cluster/health
-curl -XGET  http://10.0.5.14:9200/_cluster/state?pretty
+curl -XGET http://10.0.5.15:9200/_cluster/health
+curl -XGET http://10.0.5.15:9200/_cluster/state?pretty
 
 
-curl -XGET http://10.0.5.14:9200/_cat/shards?h=index,shard,prirep,state,unassigned.reason| grep UNASSIGNED
-curl -XGET http://10.0.5.14:9200/_cluster/allocation/explain?pretty
+curl -XGET http://10.0.5.15:9200/_cat/shards?h=index,shard,prirep,state,unassigned.reason| grep UNASSIGNED
+curl -XGET http://10.0.5.15:9200/_cluster/allocation/explain?pretty
 
 
-curl -XGET http://10.0.3.11:9200/_cat/shards?h=index,shard,prirep,state,unassigned.reason| grep UNASSIGNED
-curl -XGET http://10.0.3.11:9200/_cluster/allocation/explain?pretty
+curl -XGET http://10.0.3.6:9200/_cat/shards?h=index,shard,prirep,state,unassigned.reason| grep UNASSIGNED
+curl -XGET http://10.0.3.6:9200/_cluster/allocation/explain?pretty
 
 curl -XPOST '10.0.3.11:9200/_cluster/reroute?retry_failed'
 curl -XPOST '10.0.5.8:9200/_cluster/reroute?retry_failed'
 
 
-curl -GET http://10.0.5.14:9200/_cat/indices?v
-curl -GET http://10.0.3.3:9200/_cat/indices?v
+curl -GET http://10.0.5.15:9200/_cat/indices?v
+curl -GET http://10.0.3.6:9200/_cat/indices?v
 
 -H "Content-Type: application/json" 
 
@@ -101,7 +101,7 @@ cluster.initial_master_nodes: [10.0.5.11]
 [root@data1 ~]# 
 
 
-
+S
 
 [root@master1 ~]# cat /etc/security/limits.conf  | egrep -v "^$|^#"
 elasticsearch  -  nofile  65536
