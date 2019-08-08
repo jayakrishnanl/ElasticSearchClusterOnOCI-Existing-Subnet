@@ -13,6 +13,18 @@ resource "null_resource" "provision_es_master" {
     bastion_private_key = "${var.ssh_private_key}"
   }
 
+  provisioner "file" {
+    source      = "./userdata/jvm_options.tpl"
+    destination = "/tmp/jvm_options.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo chmod +x /tmp/jvm_options.sh",
+      "sudo sh /tmp/jvm_options.sh",
+    ]
+  }
+
   provisioner "remote-exec" {
     inline = [
       "sudo yum install -y python-oci-cli",
