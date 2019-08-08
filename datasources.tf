@@ -249,13 +249,17 @@ data "template_file" "ES_data_cfg" {
   template = "${file("${path.module}/userdata/es_data_cfg.tpl")}"
 
   vars {
-    host_label = "${element(data.template_file.ES_data_hostname_label.*.rendered, count.index)}"
-    ip         = "${element(module.create_ES_data.ComputePrivateIPs, count.index)}"
-    data_ips   = "${join(", ", module.create_ES_data.ComputePrivateIPs)}"
-    master_ips = "${join(", ", module.create_ES_master.ComputePrivateIPs)}"
-
-    #minimum_master_nodes = "${floor(var.ES_master_instance_count} / 2 + 1)}"
+    host_label           = "${element(data.template_file.ES_data_hostname_label.*.rendered, count.index)}"
+    ip                   = "${element(module.create_ES_data.ComputePrivateIPs, count.index)}"
+    data_ips             = "${join(",", formatlist("\"%s\"", module.create_ES_data.ComputePrivateIPs))}"
+    master_ips           = "${join(",", formatlist("\"%s\"", module.create_ES_master.ComputePrivateIPs))}"
     minimum_master_nodes = "1"
+
+    /*
+      data_ips   = "${join(", ", module.create_ES_data.ComputePrivateIPs)}"
+      master_ips = "${join(", ", module.create_ES_master.ComputePrivateIPs)}"
+      minimum_master_nodes = "${floor(var.ES_master_instance_count} / 2 + 1)}"
+    */
   }
 }
 

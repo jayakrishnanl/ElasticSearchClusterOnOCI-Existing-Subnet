@@ -21,7 +21,7 @@ ES_data_hostname_prefix = "esdata"
 
 # Number of ElasticSearch nodes to be created
 ES_master_instance_count = "2"
-ES_data_instance_count = "4"
+ES_data_instance_count = "2"
 
 # Bastion instance shape
 bastion_instance_shape = "VM.Standard2.1"

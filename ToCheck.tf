@@ -40,12 +40,90 @@ Join list to make it a string.
 join(", ", module.create_ES_master.ComputePrivateIPs)
 
 **********
-null_resource.provision_es_master[1] (remote-exec): sudo: ulimit: command not found
-null_resource.provision_es_master[1] (remote-exec): sudo: ulimit: command not found
-
-null_resource.provision_es_master[0] (remote-exec): sudo: ulimit: command not found
-null_resource.provision_es_master[0] (remote-exec): sudo: ulimit: command not found
 
 
+
+
+
+curl -XGET http://10.0.5.14:9200/_cluster/health
+curl -XGET  http://10.0.5.14:9200/_cluster/state?pretty
+
+
+curl -XGET http://10.0.5.14:9200/_cat/shards?h=index,shard,prirep,state,unassigned.reason| grep UNASSIGNED
+curl -XGET http://10.0.5.14:9200/_cluster/allocation/explain?pretty
+
+
+curl -XGET http://10.0.3.11:9200/_cat/shards?h=index,shard,prirep,state,unassigned.reason| grep UNASSIGNED
+curl -XGET http://10.0.3.11:9200/_cluster/allocation/explain?pretty
+
+curl -XPOST '10.0.3.11:9200/_cluster/reroute?retry_failed'
+curl -XPOST '10.0.5.8:9200/_cluster/reroute?retry_failed'
+
+
+curl -GET http://10.0.5.14:9200/_cat/indices?v
+curl -GET http://10.0.3.3:9200/_cat/indices?v
+
+-H "Content-Type: application/json" 
+
+
+curl -XDELETE http://10.0.5.14:9200/.kibana_1
+
+
+[root@master1 ~]# cat /etc/elasticsearch/elasticsearch.yml  | egrep -v "^$|^#"
+cluster.name: oci-es-cluster
+node.name: master1
+path.data: /elasticsearch/data
+path.logs: /elasticsearch/log
+bootstrap.memory_lock: true
+network.host: 10.0.5.11
+http.port: 9200
+discovery.zen.ping.unicast.hosts: ["10.0.5.11", "10.0.5.12", "10.0.3.2"]
+discovery.zen.minimum_master_nodes: 1
+node.master: true
+node.data: false
+cluster.initial_master_nodes: ["10.0.5.11"]
+
+
+
+[root@data1 ~]# cat /etc/elasticsearch/elasticsearch.yml  | egrep -v "^$|^#"
+cluster.name: oci-es-cluster
+node.name: data1
+path.data: /elasticsearch/data
+path.logs: /elasticsearch/log
+bootstrap.memory_lock: true
+network.host: 10.0.5.12
+http.port: 9200
+discovery.zen.ping.unicast.hosts: ["10.0.5.11", "10.0.5.12", "10.0.3.2"]
+discovery.zen.minimum_master_nodes: 1
+node.master: false
+node.data: true
+cluster.initial_master_nodes: [10.0.5.11]
+[root@data1 ~]# 
+
+
+
+
+[root@master1 ~]# cat /etc/security/limits.conf  | egrep -v "^$|^#"
+elasticsearch  -  nofile  65536
+elasticsearch  -  nproc  4096
+*      soft    nofile      65536 
+*      hard    nofile      65536
+*	soft	nproc	4096
+*	hard	nproc	4096
+
+
+[root@master1 ~]# cat /etc/kibana/kibana.yml | egrep -v "^$|^#"
+server.host: "10.0.5.11"
+elasticsearch.hosts: ["http://10.0.5.11:9200"]
+
+[root@master1 ~]# cat /etc/systemd/system/elasticsearch.service.d/override.conf
+[Service]
+LimitMEMLOCK=infinity
+ ^^ all nodes
+
+
+null_resource.provision_es_data[0] (remote-exec): /tmp/terraform_228658006.sh: line 7: /etc/systemd/system/elasticsearch.service.d/override.conf: Permission denied
+
+null_resource.provision_es_data[1] (remote-exec): /tmp/terraform_737650587.sh: line 7: /etc/systemd/system/elasticsearch.service.d/override.conf: Permission denied
 
 */

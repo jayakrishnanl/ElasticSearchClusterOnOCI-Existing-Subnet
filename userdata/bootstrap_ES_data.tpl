@@ -12,3 +12,6 @@ yum_repos:
     gpgkey: "https://artifacts.elastic.co/GPG-KEY-elasticsearch"
     name: "Elasticsearch repository for 7.x packages"
     type: rpm-md
+
+runcmd:
+ - rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
