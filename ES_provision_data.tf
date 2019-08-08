@@ -15,22 +15,10 @@ resource "null_resource" "provision_es_data" {
     bastion_private_key = "${var.ssh_private_key}"
   }
 
-  provisioner "file" {
-    source      = "./userdata/jvm_options.tpl"
-    destination = "/tmp/jvm_options.sh"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sudo chmod +x /tmp/jvm_options.sh",
-      "sudo sh /tmp/jvm_options.sh",
-    ]
-  }
-
   provisioner "remote-exec" {
     inline = [
       "sudo yum install -y python-oci-cli",
-      "sudo yum install -y java-1.8.0 elasticsearch",
+      "sudo yum install -y java-11-openjdk elasticsearch",
       "sudo mv /etc/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml.orig",
       "sudo mkdir /etc/systemd/system/elasticsearch.service.d",
       "sudo -s bash -c 'echo \"[Service]\" >>/etc/systemd/system/elasticsearch.service.d/override.conf'",
@@ -54,6 +42,18 @@ resource "null_resource" "provision_es_data" {
   provisioner "file" {
     content     = "${element(data.template_file.ES_data_cfg.*.rendered, count.index)}"
     destination = "/tmp/elasticsearch.yml"
+  }
+
+  provisioner "file" {
+    source      = "./userdata/jvm_options.tpl"
+    destination = "/tmp/jvm_options.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo chmod +x /tmp/jvm_options.sh",
+      "sudo sh /tmp/jvm_options.sh",
+    ]
   }
 
   provisioner "remote-exec" {

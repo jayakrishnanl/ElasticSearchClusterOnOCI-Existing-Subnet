@@ -20,8 +20,8 @@ ES_master_hostname_prefix = "esmaster"
 ES_data_hostname_prefix = "esdata"
 
 # Number of ElasticSearch nodes to be created
-ES_master_instance_count = "2"
-ES_data_instance_count = "2"
+ES_master_instance_count = "3"
+ES_data_instance_count = "3"
 
 # Bastion instance shape
 bastion_instance_shape = "VM.Standard2.1"
@@ -36,8 +36,6 @@ compute_instance_user = "opc"
 # OCID of the VCN
 vcn_id = "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaa5v2jd5b3aathqm64ad6oceeoi2jawfzotxr4egumqepopownk5da"
 
-# ElasticSearch Public Subnet - make sure SL has opened ingress: 9200/TCP, 5601/TCP; EGress ALL/TCP and has RT with IG configured.
-# es_subnet = "ocid1.subnet.oc1.eu-frankfurt-1.aaaaaaaatXXXXXXXXXqkl57s6ssz7wxufvqwdlidqfqxjq"
 
 
 

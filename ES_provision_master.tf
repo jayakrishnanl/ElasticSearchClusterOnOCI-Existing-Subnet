@@ -13,22 +13,10 @@ resource "null_resource" "provision_es_master" {
     bastion_private_key = "${var.ssh_private_key}"
   }
 
-  provisioner "file" {
-    source      = "./userdata/jvm_options.tpl"
-    destination = "/tmp/jvm_options.sh"
-  }
-
-  provisioner "remote-exec" {
-    inline = [
-      "sudo chmod +x /tmp/jvm_options.sh",
-      "sudo sh /tmp/jvm_options.sh",
-    ]
-  }
-
   provisioner "remote-exec" {
     inline = [
       "sudo yum install -y python-oci-cli",
-      "sudo yum install -y java-1.8.0 elasticsearch kibana logstash",
+      "sudo yum install -y java-11-openjdk elasticsearch kibana logstash",
       "sudo mv /etc/elasticsearch/elasticsearch.yml /etc/elasticsearch/bkp.elasticsearch.yml.orig",
       "sudo mv /etc/kibana/kibana.yml /etc/kibana/bkp.kibana.yml.orig",
       "sudo mkdir /etc/systemd/system/elasticsearch.service.d",
@@ -59,6 +47,18 @@ resource "null_resource" "provision_es_master" {
   provisioner "file" {
     content     = "${element(data.template_file.Kibana_cfg.*.rendered, count.index)}"
     destination = "/tmp/kibana.cfg"
+  }
+
+  provisioner "file" {
+    source      = "./userdata/jvm_options.tpl"
+    destination = "/tmp/jvm_options.sh"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo chmod +x /tmp/jvm_options.sh",
+      "sudo sh /tmp/jvm_options.sh",
+    ]
   }
 
   provisioner "remote-exec" {
