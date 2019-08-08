@@ -1,5 +1,5 @@
 output "BastionPublicIPs" {
-  value = ["${module.create_bastion.ComputePrivateIPs}"]
+  value = ["${module.create_bastion.ComputePublicIPs}"]
 }
 
 output "ESMasterNodePrivateIPs" {
