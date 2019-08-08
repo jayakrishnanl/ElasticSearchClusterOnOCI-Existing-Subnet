@@ -18,7 +18,7 @@ resource "null_resource" "provision_es_data" {
   provisioner "remote-exec" {
     inline = [
       "sudo yum install -y python-oci-cli",
-      "sudo yum install -y java-11-openjdk elasticsearch",
+      "sudo yum install -y java-1.8.0 elasticsearch",
       "sudo mv /etc/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml.orig",
       "sudo mkdir /etc/systemd/system/elasticsearch.service.d",
       "sudo -s bash -c 'echo \"[Service]\" >>/etc/systemd/system/elasticsearch.service.d/override.conf'",

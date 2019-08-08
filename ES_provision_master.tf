@@ -16,7 +16,7 @@ resource "null_resource" "provision_es_master" {
   provisioner "remote-exec" {
     inline = [
       "sudo yum install -y python-oci-cli",
-      "sudo yum install -y java-11-openjdk elasticsearch kibana logstash",
+      "sudo yum install -y java-1.8.0 elasticsearch kibana logstash",
       "sudo mv /etc/elasticsearch/elasticsearch.yml /etc/elasticsearch/bkp.elasticsearch.yml.orig",
       "sudo mv /etc/kibana/kibana.yml /etc/kibana/bkp.kibana.yml.orig",
       "sudo mkdir /etc/systemd/system/elasticsearch.service.d",
