@@ -1,12 +1,11 @@
 resource "null_resource" "provision_es_master" {
   count = "${var.ES_master_instance_count}"
 
-  #depends_on = ["module.create_hap.ComputePrivateIPs"]
   connection {
     agent               = false
     timeout             = "30m"
     host                = "${element(module.create_ES_master.ComputePrivateIPs, count.index)}"
-    user                = "opc"
+    user                = "${var.compute_instance_user}"
     private_key         = "${var.ssh_private_key}"
     bastion_host        = "${module.create_bastion.ComputePublicIPs[0]}"
     bastion_user        = "${var.bastion_user}"
@@ -85,7 +84,7 @@ resource "null_resource" "fix-kibana" {
     agent               = false
     timeout             = "30m"
     host                = "${module.create_ES_master.ComputePrivateIPs[0]}"
-    user                = "opc"
+    user                = "${var.compute_instance_user}"
     private_key         = "${var.ssh_private_key}"
     bastion_host        = "${module.create_bastion.ComputePublicIPs[0]}"
     bastion_user        = "${var.bastion_user}"

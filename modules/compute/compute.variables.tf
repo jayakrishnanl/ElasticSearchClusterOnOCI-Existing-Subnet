@@ -44,7 +44,7 @@ variable "bastion_public_ip" {
 
 variable "bastion_user" {}
 
-#variable "compute_instance_user" {}
+variable "compute_instance_user" {}
 
 variable "compute_subnet" {
   type        = "list"

@@ -65,6 +65,9 @@ data "oci_core_subnets" "public-regional" {
   }
 }
 
+/*
+# Data Sources if you are not using Regional Subnets but AD specific Subnets. 
+# When using AD specific subnets, make sure to un-comment the local variables in the main.tf as well.
 data "oci_core_subnets" "public-AD1" {
   compartment_id = "${var.compartment_ocid}"
   vcn_id         = "${var.vcn_id}"
@@ -124,6 +127,7 @@ data "oci_core_subnets" "private-AD3" {
     values = ["private-AD3"]
   }
 }
+*/
 
 # ES Master node data sources and temlate generation
 # Get a list of VNIC attachments on the ES Master Nodes

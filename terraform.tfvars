@@ -5,6 +5,9 @@ region = "eu-frankfurt-1"
 # AD (Availability Domain to use for creating infrastructure) 
 AD = ["1","2","3"]
 
+# OCID of the VCN
+vcn_id = "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaa5v2jd5b3aathqm64ad6oceeoi2jawfzotxr4egumqepopownk5da"
+
 # Timezone of compute instance
 timezone = "GMT"
 
@@ -32,9 +35,6 @@ ES_instance_shape = "VM.Standard2.2"
 # OS user
 bastion_user = "opc"
 compute_instance_user = "opc"
-
-# OCID of the VCN
-vcn_id = "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaa5v2jd5b3aathqm64ad6oceeoi2jawfzotxr4egumqepopownk5da"
 
 # Free Form tags specified to your Regional Subnets
 RegionalPrivateKey = "subnet"

@@ -1,4 +1,5 @@
 /*
+# Local variables if you are using AD specific subnets. Make sure to un-comment AD specific subnet finder data sources on datasources.tf
 locals {
   public_subnets  = "${compact(list("${lookup(data.oci_core_subnets.public-AD1.subnets[0], "id")}", "${lookup(data.oci_core_subnets.public-AD2.subnets[0], "id")}", "${lookup(data.oci_core_subnets.public-AD3.subnets[0], "id")}"))}"
   private_subnets = "${compact(list("${lookup(data.oci_core_subnets.private-AD1.subnets[0], "id")}", "${lookup(data.oci_core_subnets.private-AD2.subnets[0], "id")}", "${lookup(data.oci_core_subnets.private-AD3.subnets[0], "id")}"))}"
@@ -26,6 +27,7 @@ module "create_bastion" {
   compute_bv_mount_path           = ""
   compute_assign_public_ip        = "true"
   compute_image                   = "${var.instance_image_ocid[var.region]}"
+  compute_instance_user           = "${var.compute_instance_user}"
   compute_instance_shape          = "${var.bastion_instance_shape}"
   compute_ssh_public_key          = "${var.ssh_public_key}"
   compute_ssh_private_key         = "${var.ssh_private_key}"
@@ -51,6 +53,7 @@ module "create_ES_master" {
   compute_assign_public_ip        = "false"
   compute_image                   = "${var.instance_image_ocid[var.region]}"
   compute_instance_shape          = "${var.ES_instance_shape}"
+  compute_instance_user           = "${var.compute_instance_user}"
   compute_ssh_public_key          = "${var.ssh_public_key}"
   compute_ssh_private_key         = "${var.ssh_private_key}"
   bastion_ssh_private_key         = "${var.ssh_private_key}"
@@ -75,6 +78,7 @@ module "create_ES_data" {
   compute_assign_public_ip        = "false"
   compute_image                   = "${var.instance_image_ocid[var.region]}"
   compute_instance_shape          = "${var.ES_instance_shape}"
+  compute_instance_user           = "${var.compute_instance_user}"
   compute_ssh_public_key          = "${var.ssh_public_key}"
   compute_ssh_private_key         = "${var.ssh_private_key}"
   bastion_ssh_private_key         = "${var.ssh_private_key}"

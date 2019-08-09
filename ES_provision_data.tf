@@ -1,14 +1,12 @@
 resource "null_resource" "provision_es_data" {
-  count = "${var.ES_data_instance_count}"
-
+  count      = "${var.ES_data_instance_count}"
   depends_on = ["null_resource.provision_es_master"]
 
-  #depends_on = ["module.create_ES_data.BvDeviceName", "null_resource.provision_es_master"]
   connection {
     agent               = false
     timeout             = "30m"
     host                = "${element(module.create_ES_data.ComputePrivateIPs, count.index)}"
-    user                = "opc"
+    user                = "${var.compute_instance_user}"
     private_key         = "${var.ssh_private_key}"
     bastion_host        = "${module.create_bastion.ComputePublicIPs[0]}"
     bastion_user        = "${var.bastion_user}"
