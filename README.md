@@ -61,29 +61,19 @@ This is where you setup values to the customizable variables for this deployment
 | AD                         | Availability Domain for deployment. Setting AD = ["1"] deploys infrastructure in single availability domain (Availabilty domain 1 of the tenancy in this case) and AD = ["1","2"] deploys infrastructure in multiple ADs (Avilability domains 1 and 2 of the tenancy in this case). |
 | vcn_id                     | OCID of the VCN where you want to deploy the ElasticSearch cluster.                                                               
 | timezone                   | Timezone of compute instances.
-   
 | compute_boot_volume_size_in_gb              | Size of Boot volume (in gb) to be attached to the nodes.
-
 | compute_block_volume_size_in_gb             | Size of Block volume (in gb) to be attached to the ES Datanodes for data and Logs.
-
 | compute_bv_mount_path              | Mount point for ElasticSearch Data and Logs.
-
 | ES_instance_shape             	 | ElasticSeach instance shape.
-                                                                                                                                      
-| ES_master_hostname_prefix          | Hostname prefix to define hostname for ElasticSearch Master nodes.                                                                                                                                                                                                       
-| ES_data_hostname_prefix            | Hostname prefix to define hostname for ElasticSearch Data nodes.                                                                                                                                                                                                 
-| ES_master_instance_count           | Number of ElasticSearch Master nodes to be created.                                                                                                                                                                                                       
-| ES_data_instance_count             | Number of ElasticSearch Data nodes to be created.                                                                                                                                                                                                   
+| ES_master_hostname_prefix          | Hostname prefix to define hostname for ElasticSearch Master nodes.
+| ES_data_hostname_prefix            | Hostname prefix to define hostname for ElasticSearch Data nodes. 
+| ES_master_instance_count           | Number of ElasticSearch Master nodes to be created.
+| ES_data_instance_count             | Number of ElasticSearch Data nodes to be created.                                                                        
 | bastion_instance_shape             | Bastion instance shape. 
-                                                                                                                          
 | bastion_user             			 | Bastion OS user.
-                                                                                                                          
 | RegionalPrivateKey             | Free Form tag Key set on your Private Regional Subnet.
-                                                                                                                          
 | RegionalPrivateValue           | Free Form tag Value set on your Private Regional Subnet.
-                                                                                                                          
 | RegionalPublicKey              | Free Form tag Key set on your Public Regional Subnet.
-                                                                                                                          
 | RegionalPublicValue            | Free Form tag Value set on your Public Regional Subnet. 
 
 
