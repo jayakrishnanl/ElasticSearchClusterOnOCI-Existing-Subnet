@@ -59,10 +59,7 @@ This is where you setup values to the customizable variables for this deployment
 | Argument                   | Description                                                                                                                                                                                                                                                                                                                                                       |
 | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |                                                                                                                                                                                                            
 | AD                         | Availability Domain for deployment. Setting AD = ["1"] deploys infrastructure in single availability domain (Availabilty domain 1 of the tenancy in this case) and AD = ["1","2"] deploys infrastructure in multiple ADs (Avilability domains 1 and 2 of the tenancy in this case). |
-| vcn_id                     | OCID of the VCN where you want to deploy the ElasticSearch cluster.                                                                                                                                                                                                      
-| vcn_dns_label              | DNS Label of the VCN (Virtual Cloud Network) to be created.                                                                                                                                                                                                       
-| vcn_display_name           | Name of the VCN (Virtual Cloud Network) to be created                    
-
+| vcn_id                     | OCID of the VCN where you want to deploy the ElasticSearch cluster.                                                               
 | timezone                   | Timezone of compute instances.
    
 | compute_boot_volume_size_in_gb              | Size of Boot volume (in gb) to be attached to the nodes.
@@ -151,7 +148,7 @@ RegionalPublicValue = "public-regional"
   ```
   $ source env-vars.sh
   ```
-  
+
 5) Initialize Terraform. This will also download the latest terraform oci provider.
 
   ```
