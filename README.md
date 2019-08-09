@@ -29,8 +29,24 @@ RegionalPrivateValue = "<Value>"
 RegionalPublicKey = "<Key>"
 RegionalPublicValue = "<Value>"
 ```
-
 Refer: https://docs.cloud.oracle.com/iaas/Content/General/Concepts/resourcetags.htm#workingtags
+
+6. Security List associated with the ElastiCache Subnets should open the following ElasticSearch and Kibana ports.
+
+```
+Ingress:
+9200/TCP
+9300/TCP
+5601/TCP
+
+Egress:
+All Protocols (You may fine tune the egress rules but needs adequate testing and opening ephemeral ports)
+```
+
+**NOTE**
+- Our suggestion is to launch the ElasticSearch nodes on Private Subnets.
+- You may update the ElasticSearch and Kibana configuration as per yor requirements by tweaking the template files in userdata directory and if required updating the template definitions on datasources.tf file.
+- SELinux is running in Enforcing mode on all the nodes.
 
 ## Update env-var.sh file with OCI credentials
 ```
