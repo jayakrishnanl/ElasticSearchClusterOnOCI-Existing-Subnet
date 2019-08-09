@@ -127,6 +127,7 @@ data "oci_core_subnets" "private-AD3" {
     values = ["private-AD3"]
   }
 }
+
 */
 
 # ES Master node data sources and temlate generation

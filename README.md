@@ -151,6 +151,7 @@ RegionalPublicValue = "public-regional"
   ```
   $ source env-vars.sh
   ```
+  
 5) Initialize Terraform. This will also download the latest terraform oci provider.
 
   ```
