@@ -63,10 +63,10 @@ resource "null_resource" "provision_es_master" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo -s bash -c 'cp /tmp/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml'",
-      "sudo -s bash -c 'chmod 660 /etc/elasticsearch/elasticsearch.yml'",
-      "sudo -s bash -c 'chown root:elasticsearch /etc/elasticsearch/elasticsearch.yml'",
-      "sudo -s bash -c 'cp /tmp/kibana.cfg /etc/kibana/kibana.yml'",
+      "sudo cp /tmp/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml",
+      "sudo chmod 660 /etc/elasticsearch/elasticsearch.yml",
+      "sudo chown root:elasticsearch /etc/elasticsearch/elasticsearch.yml",
+      "sudo cp /tmp/kibana.cfg /etc/kibana/kibana.yml",
       "sudo mkdir -p /elasticsearch/data /elasticsearch/log",
       "sudo chown -R elasticsearch:elasticsearch  /elasticsearch",
       "sudo systemctl daemon-reload",
@@ -84,10 +84,10 @@ resource "null_resource" "fix-kibana" {
   connection {
     agent               = false
     timeout             = "30m"
-    host                = "${module.create_ES_master.ComputePrivateIPs[1]}"
+    host                = "${module.create_ES_master.ComputePrivateIPs[0]}"
     user                = "opc"
     private_key         = "${var.ssh_private_key}"
-    bastion_host        = "${module.create_bastion.ComputePublicIPs[1]}"
+    bastion_host        = "${module.create_bastion.ComputePublicIPs[0]}"
     bastion_user        = "${var.bastion_user}"
     bastion_private_key = "${var.ssh_private_key}"
   }
@@ -95,8 +95,7 @@ resource "null_resource" "fix-kibana" {
   provisioner "remote-exec" {
     inline = [
       "sleep 200",
-      "sudo ip=`hostname -i`",
-      "sudo curl -XDELETE http://$ip:9200/.kibana_1",
+      "sudo -s bash -c 'curl -XDELETE http://$${HOSTNAME}:9200/.kibana_1'",
       "sudo systemctl restart kibana.service",
     ]
   }
