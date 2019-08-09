@@ -46,7 +46,7 @@ data "oci_identity_regions" "home-region" {
 # Find the Public and Private Subnets in the VCN specified
 data "oci_core_subnets" "public-AD1" {
   compartment_id = "${var.compartment_ocid}"
-  vcn_id         = "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaa5v2jd5b3aathqm64ad6oceeoi2jawfzotxr4egumqepopownk5da"
+  vcn_id         = "${var.vcn_id}"
 
   filter {
     name   = "freeform_tags.subnet"
@@ -56,7 +56,7 @@ data "oci_core_subnets" "public-AD1" {
 
 data "oci_core_subnets" "public-AD2" {
   compartment_id = "${var.compartment_ocid}"
-  vcn_id         = "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaa5v2jd5b3aathqm64ad6oceeoi2jawfzotxr4egumqepopownk5da"
+  vcn_id         = "${var.vcn_id}"
 
   filter {
     name   = "freeform_tags.subnet"
@@ -66,7 +66,7 @@ data "oci_core_subnets" "public-AD2" {
 
 data "oci_core_subnets" "public-AD3" {
   compartment_id = "${var.compartment_ocid}"
-  vcn_id         = "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaa5v2jd5b3aathqm64ad6oceeoi2jawfzotxr4egumqepopownk5da"
+  vcn_id         = "${var.vcn_id}"
 
   filter {
     name   = "freeform_tags.subnet"
@@ -76,7 +76,7 @@ data "oci_core_subnets" "public-AD3" {
 
 data "oci_core_subnets" "private-AD1" {
   compartment_id = "${var.compartment_ocid}"
-  vcn_id         = "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaa5v2jd5b3aathqm64ad6oceeoi2jawfzotxr4egumqepopownk5da"
+  vcn_id         = "${var.vcn_id}"
 
   filter {
     name   = "freeform_tags.subnet"
@@ -86,7 +86,7 @@ data "oci_core_subnets" "private-AD1" {
 
 data "oci_core_subnets" "private-AD2" {
   compartment_id = "${var.compartment_ocid}"
-  vcn_id         = "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaa5v2jd5b3aathqm64ad6oceeoi2jawfzotxr4egumqepopownk5da"
+  vcn_id         = "${var.vcn_id}"
 
   filter {
     name   = "freeform_tags.subnet"
@@ -96,7 +96,7 @@ data "oci_core_subnets" "private-AD2" {
 
 data "oci_core_subnets" "private-AD3" {
   compartment_id = "${var.compartment_ocid}"
-  vcn_id         = "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaa5v2jd5b3aathqm64ad6oceeoi2jawfzotxr4egumqepopownk5da"
+  vcn_id         = "${var.vcn_id}"
 
   filter {
     name   = "freeform_tags.subnet"
@@ -251,13 +251,7 @@ data "template_file" "ES_data_cfg" {
     ip                   = "${element(module.create_ES_data.ComputePrivateIPs, count.index)}"
     data_ips             = "${join(", ", formatlist("\"%s\"", module.create_ES_data.ComputePrivateIPs))}"
     master_ips           = "${join("," , formatlist("\"%s\"", module.create_ES_master.ComputePrivateIPs))}"
-    minimum_master_nodes = "1"
-
-    /*
-      data_ips   = "${join(", ", module.create_ES_data.ComputePrivateIPs)}"
-      master_ips = "${join(", ", module.create_ES_master.ComputePrivateIPs)}"
-      minimum_master_nodes = "${floor(var.ES_master_instance_count} / 2 + 1)}"
-    */
+    minimum_master_nodes = "${floor(var.ES_master_instance_count / 2 + 1)}"
   }
 }
 

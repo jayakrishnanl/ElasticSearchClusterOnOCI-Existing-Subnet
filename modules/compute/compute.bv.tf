@@ -9,7 +9,6 @@ resource "oci_core_volume" "blockvolume" {
 resource "oci_core_volume_attachment" "blockvolume_attach" {
   attachment_type = "paravirtualized"
   count           = "${var.compute_block_volume_size_in_gb != 0 ? var.compute_instance_count : 0}"
-  compartment_id  = "${var.compartment_ocid}"
   instance_id     = "${element(oci_core_instance.compute.*.id, count.index)}"
   volume_id       = "${element(oci_core_volume.blockvolume.*.id, count.index)}"
 

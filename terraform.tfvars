@@ -1,6 +1,6 @@
 
 # Region
-# region = "eu-frankfurt-1"
+region = "eu-frankfurt-1"
 
 # AD (Availability Domain to use for creating infrastructure) 
 AD = ["1","2","3"]
