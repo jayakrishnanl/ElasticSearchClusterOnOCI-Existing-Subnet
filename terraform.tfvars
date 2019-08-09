@@ -36,6 +36,11 @@ compute_instance_user = "opc"
 # OCID of the VCN
 vcn_id = "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaa5v2jd5b3aathqm64ad6oceeoi2jawfzotxr4egumqepopownk5da"
 
+# Free Form tags specified to your Regional Subnets
+RegionalPrivateKey = "subnet"
+RegionalPrivateValue = "private-regional"
+RegionalPublicKey = "subnet"
+RegionalPublicValue = "public-regional"
 
 
 

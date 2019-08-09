@@ -15,28 +15,21 @@ variable "vcn_id" {
   description = "OCID your VCN - Make sure you have tagged the Private & Public Subnets per instructions"
 }
 
-/*
-variable "public_subnet_1" {
-  description = "OCID of your existing 1st public Subnet for launching bastion node and LB"
+variable "RegionalPrivateKey" {
+  description = "Freeform tag Key specified to your existing Regional Private Subnet"
 }
 
-variable "public_subnet_2" {
-  description = "OCID of your existing 2nd public Subnet for launching bastion node and LB"
+variable "RegionalPrivateValue" {
+  description = "Freeform tag Value specified to your existing Regional Private Subnet"
 }
 
-variable "private_subnet_1" {
-  description = "OCID of your existing 1st private Subnet for launching ElasticSearch Master node"
+variable "RegionalPublicKey" {
+  description = "Freeform tag Key specified to your existing Regional Public Subnet"
 }
 
-variable "private_subnet_2" {
-  description = "OCID of your existing 2nd private Subnet for launching ElasticSearch Master node"
+variable "RegionalPublicValue" {
+  description = "Freeform tag Value specified to your existing Regional Public Subnet"
 }
-
-variable "private_subnet_3" {
-  description = "OCID of your existing 3rd private Subnet for launching ElasticSearch Master node"
-}
-
-*/
 
 variable "AD" {
   description = "Setting AD = [\"1\"] deploys infrastructure in single availability domain (Availabilty domain 1 of the tenancy in this case) and AD = [\"1\",\"2\"] deploys infrastructure in multiple ADs (Avilability domains 1 and 2 of the tenancy in this case)"

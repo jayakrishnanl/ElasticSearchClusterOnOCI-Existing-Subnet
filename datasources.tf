@@ -44,6 +44,27 @@ data "oci_identity_regions" "home-region" {
 }
 
 # Find the Public and Private Subnets in the VCN specified
+
+data "oci_core_subnets" "private-regional" {
+  compartment_id = "${var.compartment_ocid}"
+  vcn_id         = "${var.vcn_id}"
+
+  filter {
+    name   = "freeform_tags.subnet"
+    values = ["private-regional"]
+  }
+}
+
+data "oci_core_subnets" "public-regional" {
+  compartment_id = "${var.compartment_ocid}"
+  vcn_id         = "${var.vcn_id}"
+
+  filter {
+    name   = "freeform_tags.subnet"
+    values = ["public-regional"]
+  }
+}
+
 data "oci_core_subnets" "public-AD1" {
   compartment_id = "${var.compartment_ocid}"
   vcn_id         = "${var.vcn_id}"
@@ -171,7 +192,7 @@ data "template_file" "EsMasterCfg" {
     host_label           = "${element(data.template_file.ES_master_hostname_label.*.rendered, count.index)}"
     ip                   = "${element(module.create_ES_master.ComputePrivateIPs, count.index)}"
     data_ips             = "${join(", ", formatlist("\"%s\"", module.create_ES_data.ComputePrivateIPs))}"
-    master_ips           = "${join("," , formatlist("\"%s\"", module.create_ES_master.ComputePrivateIPs))}"
+    master_ips           = "${join(", " , formatlist("\"%s\"", module.create_ES_master.ComputePrivateIPs))}"
     minimum_master_nodes = "${floor(var.ES_master_instance_count / 2 + 1)}"
   }
 }
@@ -250,7 +271,7 @@ data "template_file" "ES_data_cfg" {
     host_label           = "${element(data.template_file.ES_data_hostname_label.*.rendered, count.index)}"
     ip                   = "${element(module.create_ES_data.ComputePrivateIPs, count.index)}"
     data_ips             = "${join(", ", formatlist("\"%s\"", module.create_ES_data.ComputePrivateIPs))}"
-    master_ips           = "${join("," , formatlist("\"%s\"", module.create_ES_master.ComputePrivateIPs))}"
+    master_ips           = "${join(", " , formatlist("\"%s\"", module.create_ES_master.ComputePrivateIPs))}"
     minimum_master_nodes = "${floor(var.ES_master_instance_count / 2 + 1)}"
   }
 }

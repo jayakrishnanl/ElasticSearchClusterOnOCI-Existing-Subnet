@@ -77,3 +77,27 @@ resource "null_resource" "provision_es_master" {
     ]
   }
 }
+
+resource "null_resource" "fix-kibana" {
+  depends_on = ["null_resource.provision_es_master"]
+
+  connection {
+    agent               = false
+    timeout             = "30m"
+    host                = "${module.create_ES_master.ComputePrivateIPs[1]}"
+    user                = "opc"
+    private_key         = "${var.ssh_private_key}"
+    bastion_host        = "${module.create_bastion.ComputePublicIPs[1]}"
+    bastion_user        = "${var.bastion_user}"
+    bastion_private_key = "${var.ssh_private_key}"
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "sleep 200",
+      "sudo ip=`hostname -i`",
+      "sudo curl -XDELETE http://$ip:9200/.kibana_1",
+      "sudo systemctl restart kibana.service",
+    ]
+  }
+}

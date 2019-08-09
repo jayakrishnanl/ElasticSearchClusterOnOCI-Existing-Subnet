@@ -1,6 +1,13 @@
+/*
 locals {
   public_subnets  = "${compact(list("${lookup(data.oci_core_subnets.public-AD1.subnets[0], "id")}", "${lookup(data.oci_core_subnets.public-AD2.subnets[0], "id")}", "${lookup(data.oci_core_subnets.public-AD3.subnets[0], "id")}"))}"
   private_subnets = "${compact(list("${lookup(data.oci_core_subnets.private-AD1.subnets[0], "id")}", "${lookup(data.oci_core_subnets.private-AD2.subnets[0], "id")}", "${lookup(data.oci_core_subnets.private-AD3.subnets[0], "id")}"))}"
+}
+*/
+
+locals {
+  public_subnets  = "${compact(list("${lookup(data.oci_core_subnets.public-regional.subnets[0], "id")}"))}"
+  private_subnets = "${compact(list("${lookup(data.oci_core_subnets.private-regional.subnets[0], "id")}"))}"
 }
 
 # Create ElasticSearch Node

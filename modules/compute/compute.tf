@@ -7,7 +7,9 @@ resource "oci_core_instance" "compute" {
   shape               = "${var.compute_instance_shape}"
 
   create_vnic_details {
-    subnet_id        = "${element(var.compute_subnet, count.index)}"
+    subnet_id = "${element(var.compute_subnet, count.index)}"
+
+    #subnet_id        = "${var.compute_subnet}"
     display_name     = "${var.compute_hostname_prefix}${element(var.AD,count.index)}${count.index + 1}"
     assign_public_ip = "${var.compute_assign_public_ip}"
     hostname_label   = "${var.compute_hostname_prefix}${element(var.AD,count.index)}${count.index + 1}"
