@@ -50,8 +50,8 @@ data "oci_core_subnets" "private-regional" {
   vcn_id         = "${var.vcn_id}"
 
   filter {
-    name   = "freeform_tags.subnet"
-    values = ["private-regional"]
+    name   = "freeform_tags.${var.RegionalPrivateKey}"
+    values = ["${var.RegionalPrivateValue}"]
   }
 }
 
@@ -60,8 +60,8 @@ data "oci_core_subnets" "public-regional" {
   vcn_id         = "${var.vcn_id}"
 
   filter {
-    name   = "freeform_tags.subnet"
-    values = ["public-regional"]
+    name   = "freeform_tags.${var.RegionalPublicKey}"
+    values = ["${var.RegionalPublicValue}"]
   }
 }
 
