@@ -1,8 +1,12 @@
+
+# Region
+region = "eu-frankfurt-1"
+
 # AD (Availability Domain to use for creating infrastructure) 
 AD = ["1","2","3"]
 
 # OCID of the VCN
-vcn_id = ""
+vcn_id = "ocid1.vcn.oc1.eu-frankfurt-1.aaaaaaaa5v2jd5b3aathqm64ad6oceeoi2jawfzotxr4egumqepopownk5da"
 
 # Timezone of compute instance
 timezone = "GMT"
@@ -26,17 +30,17 @@ ES_data_instance_count = "3"
 bastion_instance_shape = "VM.Standard2.1"
 
 # ElastiSearch instance shape
-ES_instance_shape = ""
+ES_instance_shape = "VM.Standard2.2"
 
 # OS user
 bastion_user = "opc"
 compute_instance_user = "opc"
 
 # Free Form tags specified to your Regional Subnets
-RegionalPrivateKey = "<Key>"
-RegionalPrivateValue = "<Value"
-RegionalPublicKey = "<Key>"
-RegionalPublicValue = "<Value>"
+RegionalPrivateKey = "subnet"
+RegionalPrivateValue = "private-regional"
+RegionalPublicKey = "subnet"
+RegionalPublicValue = "public-regional"
 
 
 
