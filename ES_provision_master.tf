@@ -95,6 +95,8 @@ resource "null_resource" "fix-kibana" {
     inline = [
       "sleep 200",
       "sudo -s bash -c 'curl -XDELETE http://$${HOSTNAME}:9200/.kibana_1'",
+      "sudo -s bash -c 'curl -XDELETE http://$${HOSTNAME}:9200/.apm-agent-configuration'",
+      "sudo -s bash -c 'curl -XDELETE http://$${HOSTNAME}:9200/.kibana_task_manager_1'"
       "sudo systemctl restart kibana.service",
     ]
   }
